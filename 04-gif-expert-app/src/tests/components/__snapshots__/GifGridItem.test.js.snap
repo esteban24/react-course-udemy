@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GifGridItem.js test suite should match component snapshop 1`] = `
+<div
+  className="card animate__animated animate__fadeIn"
+>
+  <img
+    alt="Sample Text"
+    src="https://my.test.host/gif.gif"
+  />
+  <p>
+    Sample Text
+  </p>
+</div>
+`;
