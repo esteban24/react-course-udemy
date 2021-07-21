@@ -1,0 +1,29 @@
+body {
+    padding: 60px;
+}
+
+button {
+    margin: 5px;
+}
+
+input {
+    margin: 5px;
+}
+
+.blockquote {
+    display: flex;
+}
+
+.list-group-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+p.text-center {
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+}
