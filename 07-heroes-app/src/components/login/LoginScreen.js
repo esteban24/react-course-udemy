@@ -6,13 +6,17 @@ export const LoginScreen = ({ history }) => {
 
     const { dispatch } = useContext(AuthContext);
     const handleLogin = () => {
+        // Login to last path in the app if stored in localStorage
+        const lastPath = localStorage.getItem('lastPathname') || '/';
+
         dispatch({
             payload: {
                 name: 'Esteban'
             },
             type: types.login
         });
-        history.replace('/');
+
+        history.replace(lastPath);
     }
 
     return (
