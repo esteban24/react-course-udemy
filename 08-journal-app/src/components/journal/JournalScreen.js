@@ -1,6 +1,6 @@
 import React from 'react'
 import { NoteScreen } from '../notes/NoteScreen'
-import { EmptyComponent } from './EmptyComponent'
+// import { EmptyComponent } from './EmptyComponent'
 import { Sidebar } from './Sidebar'
 
 
