@@ -1,26 +1,40 @@
-import React from 'react'
+import React from 'react';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { activeNote } from '../../actions/notes';
 
-export const JournalEntry = () => {
+export const JournalEntry = ({ id, date, title, body, url }) => {
+    const dispatch = useDispatch();
+    const noteDate = moment(date);
+
+    const handleClick = () => {
+        dispatch(activeNote(id, {date, title, body, url}));
+    }
+    
     return (
-        <div className="journal__entry">
-            <div 
-                className="journal__entry-picture"
-                style={{
-                    backgroundSize: 'cover',
-                    backgroundImage: 'url(https://pm1.narvii.com/5791/5f5f30f2557584ffd7c0f7015ea310e2976bd162_hq.jpg)'
-                }}
-            />
+        <div onClick={ handleClick } className="journal__entry">
+            {
+                url && 
+                <div 
+                    className="journal__entry-picture"
+                    style={{
+                        backgroundSize: 'cover',
+                        backgroundImage: `url(${url})`
+                    }}
+                />
+            }
+
             <div className="journal__entry-body">
                 <p className="journal__entry-title">
-                    A new day
+                    { title }
                 </p>
                 <p className="journal__entry-content">
-                    Hello there! Welcome to the world of POKEMON! My name is OAK! People call me the POKEMON PROF!
+                    { body }
                 </p>
             </div>
             <div className="journal__entry-date">
-                <span>Monday</span>
-                <h4>28</h4>
+                <span>{ noteDate.format('dddd') }</span>
+                <h4>{ noteDate.format('Do') }</h4>
             </div>
         </div>
     )
