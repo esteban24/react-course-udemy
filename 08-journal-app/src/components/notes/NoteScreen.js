@@ -7,16 +7,24 @@ import { NotesAppBar } from './NotesAppBar'
 export const NoteScreen = () => {
     const { active: note } = useSelector(state => state.notes);
     const [ formValues, handleInputChange, reset ] = useForm(note);
-    const { body, title } = formValues;
+    const { body, title, url } = formValues;
     const dispatch = useDispatch();
 
     const activeId = useRef(note.id);
+    const activeImg = useRef(note.url);
 
     useEffect(() => {
+        // Refresh the active note
         if(note.id !== activeId.current) {
             reset(note);
             activeId.current = note.id;
         } 
+
+        // Refresh active note image if it changes
+        if(note.url !== activeImg.current) {
+            reset(note);
+            activeImg.current = note.url;
+        }
     }, [note, reset]);
 
     useEffect(() => {
@@ -49,8 +57,9 @@ export const NoteScreen = () => {
                     (note.url) && 
                     <div className="notes__image">
                         <img
-                            src="https://s.clipartkey.com/mpngs/s/302-3022664_pokemon-red-8-bit.png"
-                            alt="pokemon_trainer"
+                            style={{ maxWidth: "200px", maxHeight: "200px"}}
+                            src={url}
+                            alt={url}
                         ></img>
                     </div>
                 }
