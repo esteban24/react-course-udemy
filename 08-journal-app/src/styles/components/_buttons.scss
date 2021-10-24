@@ -24,6 +24,7 @@
     background-color: $primary;
     border-radius: 2px;
 
+    transition: background-color .2s ease;
     &:disabled {
         background-color: lighten($color: $primary, $amount: 15);
     }
@@ -35,4 +36,14 @@
 
 .btn-block {
     width: 100%;
+}
+
+.btn-danger {
+    background-color: red;
+    margin: 10px;
+
+    transition: background-color .2s ease;
+    &:hover {
+        background-color: darken($color: red, $amount: 15);
+    }
 }

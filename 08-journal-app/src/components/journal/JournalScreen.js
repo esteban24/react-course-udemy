@@ -8,11 +8,11 @@ import { Sidebar } from './Sidebar'
 export const JournalScreen = () => {
     const { active } = useSelector(state => state.notes);
     return (
-        <div className="journal__main-content">
+        <div className="journal__main-content animate__animated animate__slideInRight animate__faster">
             <Sidebar />
             <main>
                 {
-                    (active) ? <NoteScreen/> : <EmptyComponent/>
+                    (active) ? <NoteScreen /> : <EmptyComponent />
                 }
             </main>
         </div>

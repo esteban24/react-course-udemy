@@ -15,14 +15,21 @@ export const startNewNote = () => {
 
         const doc = await db.collection(`${uid}/journal/notes`).add(newNote);
 
-        console.log(doc);
-
         dispatch(activeNote(doc.id, newNote));
+        dispatch(addNewNote(doc.id, newNote));
     }
 }
 
 export const activeNote = (id, note) => ({
     type: types.notesActive,
+    payload: {
+        id,
+        ...note
+    }
+});
+
+export const addNewNote = (id, note) => ({
+    type: types.notesAddNew,
     payload: {
         id,
         ...note
@@ -53,7 +60,7 @@ export const startSaveNote = (note) => {
         delete noteParsed.id;
 
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteParsed);
-    
+
         dispatch(refreshNote(note.id, noteParsed));
         Swal.fire('Note saved', `'${note.title}' sucessfully saved.`, 'success');
     }
@@ -62,7 +69,7 @@ export const startSaveNote = (note) => {
 export const refreshNote = (id, note) => ({
     type: types.notesUpdated,
     payload : {
-        id, 
+        id,
         note: {
             id,
             ...note
@@ -81,7 +88,7 @@ export const startUploading = (file) => {
                 Swal.showLoading();
             },
         });
-        
+
         const fileUrl = await fileUpload(file);
         activeNote.url = fileUrl;
 
@@ -90,3 +97,31 @@ export const startUploading = (file) => {
         Swal.close();
     }
 }
+
+export const startDeletingNote = (id) => {
+    return async(dispatch, getState) => {
+        Swal.fire({
+            title: 'Deleting...',
+            text: 'Please wait',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        const uid = getState().auth.uid;
+        await db.doc(`${uid}/journal/notes/${id}`).delete();
+
+        dispatch(deleteNote(id));
+        Swal.close();
+    }
+}
+
+export const deleteNote = (id) => ({
+    type: types.notesDelete,
+    payload: id
+});
+
+export const startNotesClean = () => ({
+    type: types.notesLogoutClean
+});

@@ -10,12 +10,15 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
     const handleClick = () => {
         dispatch(activeNote(id, {date, title, body, url}));
     }
-    
+
     return (
-        <div onClick={ handleClick } className="journal__entry">
+        <div
+            onClick={ handleClick }
+            className="journal__entry animate__animated animate__fadeIn animate__faster"
+        >
             {
-                url && 
-                <div 
+                url &&
+                <div
                     className="journal__entry-picture"
                     style={{
                         backgroundSize: 'cover',

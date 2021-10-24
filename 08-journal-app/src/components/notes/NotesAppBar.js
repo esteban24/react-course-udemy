@@ -1,11 +1,19 @@
-import React from 'react'
+import moment from 'moment';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2';
 import { startSaveNote, startUploading } from '../../actions/notes';
 
 export const NotesAppBar = () => {
     const { active } = useSelector(state => state.notes);
+    const [date, setDate] = useState(active.date);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(active.date !== date) {
+            setDate(active.date);
+        };
+    }, [active, date])
 
     const handleSaveNote = () => {
         dispatch(startSaveNote(active));
@@ -34,7 +42,7 @@ export const NotesAppBar = () => {
 
     return (
         <div className="notes__appbar">
-            <span>28 de Agosto de 2021</span>
+            <span>{ moment(date).format('Do') } { moment(date).format('dddd') }</span>
 
             <input
                 id="file-selector"
@@ -46,14 +54,14 @@ export const NotesAppBar = () => {
             />
 
             <div>
-                <button 
+                <button
                     className="btn"
                     onClick={ handleUploadImage }
                 >
                     Picture
                 </button>
 
-                <button 
+                <button
                     className="btn"
                     onClick={ handleSaveNote }
                 >

@@ -2,7 +2,7 @@ import React from 'react'
 
 export const EmptyComponent = () => {
     return (
-        <div className="empty_main-content">
+        <div className="empty_main-content animate__animated animate__fadeInRight animate__faster">
             <p>
                 Select something
                 <br/>
